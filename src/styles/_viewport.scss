@@ -1,0 +1,13 @@
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .viewport{
+    position: relative;
+    width: 324px;
+    height: 575px;
+    background-image: url('images/bg.png')
+  }
+}

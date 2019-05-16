@@ -1,0 +1,36 @@
+.apple{
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-image: url('images/apple.png');
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  transform-origin: top center;
+  transform: rotate(0);
+  top:70px;
+  left: 40px;
+
+  &.shake{
+    animation-name: apple-shake;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: 2;
+  }
+}
+
+@keyframes apple-shake {
+  0%{
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(-15deg);
+  }
+  75%{
+    transform: rotate(15deg)
+  }
+  100%{
+    transform: rotate(0);
+  }
+}
+
