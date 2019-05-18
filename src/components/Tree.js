@@ -1,10 +1,19 @@
 import React from 'react';
 import { Apple } from './';
 
-const Tree = () => {
+const Tree = ({ isShaking, apples, handleAnimationEnd }) => {
   return (
-    <div className="tree">
-      <Apple />
+    <div
+      onAnimationEnd={handleAnimationEnd}
+      className={`tree ${isShaking ? 'shake' : ''}`}
+    >
+      {apples.map(apple => (
+        <Apple
+          bottom={apple.bottom}
+          left={apple.left}
+          transition={apple.transition}
+        />
+      ))}
     </div>
   );
 };

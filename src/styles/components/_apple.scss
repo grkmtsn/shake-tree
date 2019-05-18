@@ -8,8 +8,6 @@
   background-repeat: no-repeat;
   transform-origin: top center;
   transform: rotate(0);
-  top:70px;
-  left: 40px;
 
   &.shake{
     animation-name: apple-shake;
@@ -34,3 +32,17 @@
   }
 }
 
+@keyframes apple-drop {
+  0%{
+    transform: rotate(0deg);
+  }
+  25%{
+    transform: rotate(-15deg);
+  }
+  75%{
+    transform: rotate(15deg)
+  }
+  100%{
+    transform: rotate(0);
+  }
+}
