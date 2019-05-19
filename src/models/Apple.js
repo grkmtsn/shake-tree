@@ -1,6 +1,6 @@
-import { random, constants } from "../helpers";
+import { methods, constants } from "../helpers";
 
-const { generateRandomInt } = random;
+const { generateRandomInt } = methods;
 const { dropPositionRange, basketPosition } = constants;
 
 class Apple {

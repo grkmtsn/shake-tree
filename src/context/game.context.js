@@ -3,9 +3,9 @@ import Apple from "../models/Apple";
 
 const GameContext = React.createContext();
 
-import { random, constants } from "../helpers";
+import { methods, constants } from "../helpers";
 
-const { generateRandomInt, delay } = random;
+const { generateRandomInt, delay } = methods;
 const { appleCountRange, bottomRange, transitionRange, leftRange } = constants;
 
 class GameProvider extends Component {

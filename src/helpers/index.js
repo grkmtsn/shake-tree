@@ -1,4 +1,4 @@
-import * as random from './random';
+import * as methods from './methods';
 import * as constants from './constants';
 
-export { random, constants };
+export { methods, constants };
