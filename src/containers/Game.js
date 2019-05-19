@@ -1,29 +1,34 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import * as Context from '../context';
-import { Tree, Button } from '../components';
+import * as Context from "../context";
+import { Tree, Button, Scoreboard, Menu } from "../components";
 
 class Game extends Component {
-  static propTypes = {
-    prop: PropTypes
-  };
-
   render() {
     return (
       <Context.Game.Consumer>
         {({
           isShaking,
           apples,
+          collectedAppleCount,
           handleShakeButtonClick,
-          handleShakingAnimationEnd
+          handleShakingAnimationEnd,
+          finished,
+          handleReset
         }) => (
           <React.Fragment>
-            <Button handleClick={handleShakeButtonClick} />
+            <Scoreboard count={collectedAppleCount} />
+            <Button handleClick={handleShakeButtonClick} finished={finished} />
             <Tree
               isShaking={isShaking}
               apples={apples}
               handleAnimationEnd={handleShakingAnimationEnd}
+            />
+            <Menu
+              score={collectedAppleCount}
+              finished={finished}
+              handleReset={handleReset}
             />
           </React.Fragment>
         )}

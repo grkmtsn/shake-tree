@@ -4,10 +4,6 @@ const generateRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const generateRandomArray = (size, min, max) => {
-  return new Array(size).fill(0).map(function(n) {
-    return generateRandomInt(min, max);
-  });
-};
+const delay = ms => new Promise(res => setTimeout(res, ms));
 
-export { generateRandomInt, generateRandomArray };
+export { generateRandomInt, delay };

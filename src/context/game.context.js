@@ -1,18 +1,21 @@
-import React, { Component } from 'react';
-import Apple from '../models/Apple';
+import React, { Component } from "react";
+import Apple from "../models/Apple";
 
 const GameContext = React.createContext();
 
-import { random, constants } from '../helpers';
+import { random, constants } from "../helpers";
 
-const { generateRandomArray, generateRandomInt } = random;
+const { generateRandomInt, delay } = random;
 const { appleCountRange, bottomRange, transitionRange, leftRange } = constants;
 
 class GameProvider extends Component {
   state = {
-    apples: [],
-    collectedApples: [],
-    isShaking: false
+    apples: [], // Apples array will render on tree component
+    collectedApples: [], // Collected apples array after every click
+    applesOnTree: [], // Apples array stay on tree
+    collectedAppleCount: 0, // Collected apple count after every click
+    isShaking: false, // Animation control state
+    finished: false // Check game finish state
   };
 
   componentWillMount() {
@@ -20,12 +23,13 @@ class GameProvider extends Component {
   }
 
   generateApple = () => {
+    // Apple count will generate
     const appleCount = generateRandomInt(
       appleCountRange.min,
       appleCountRange.max
     );
 
-    //Generate Apple Objects and set state
+    // Generate apple objects and set state
     for (let index = 0; index < appleCount; index++) {
       const apple = new Apple(
         generateRandomInt(bottomRange.min, bottomRange.max),
@@ -34,8 +38,10 @@ class GameProvider extends Component {
       );
       this.setState(prevState => {
         const apples = [...prevState.apples, apple];
+        const applesOnTree = [...prevState.apples, apple];
         return {
-          apples
+          apples,
+          applesOnTree
         };
       });
     }
@@ -46,47 +52,83 @@ class GameProvider extends Component {
   };
 
   handleShakingAnimationEnd = () => {
+    // After tree shake animation end in css, this method will execute
     this.setState({ isShaking: false });
     const { apples } = this.state;
-    const collectedApples = [apples[0]];
-    this.dropApples(collectedApples);
+
+    const applesOnTree = apples.filter(apple => apple.collected === false); // At first get apples which collected property is false
+    this.setState({ applesOnTree });
+    const applesCountOnTree = applesOnTree.length; // Length of apples on tree
+    const collectedApples = [applesOnTree[0]]; // Always collect at least one, this is first one default
+    for (let index = 1; index < applesCountOnTree; index++) {
+      // Collect random apples to drop except first one
+      if (Math.random() > 0.5) {
+        collectedApples.push(applesOnTree[index]);
+      }
+    }
+    collectedApples.length > 0 && this.dropApples(collectedApples); // Send collected apples to drop method
   };
 
-  dropApples = apples => {
-    const dropapples = apples.map(apple => {
-      apple.drop();
+  dropApples = collectedApples => {
+    const droppedApples = collectedApples.map(apple => {
+      apple.drop(); // Each apple has drop method in own class
       return apple;
     });
+    this.collectApples(droppedApples); // Send dropped apples to add collect method
+  };
+
+  collectApples = droppedApples => {
+    droppedApples.map(async apple => {
+      this.addBasket(apple);
+    });
+  };
+
+  addBasket = async apple => {
+    await delay(1000 + apple.transition);
+    apple.collect(); // Each apple has collect method in own class. Collect method set apple's collected propery to true
+    await delay(apple.transition);
 
     this.setState(
       prevState => {
-        console.log(dropapples, 'drop');
-        const other = prevState.apples.filter(item => item.collected === false);
-        console.log(other, 'other');
+        const applesOnTree = prevState.apples.filter(
+          apple => apple.collected === false
+        );
+        // Filter apples on tree for collected property and set apple count in basket
         return {
-          apples: [...other, ...dropapples]
+          applesOnTree,
+          collectedAppleCount: prevState.collectedAppleCount + 1
         };
       },
-      () => {
-        console.log(this.state, 'state');
-        this.collectApples(dropapples, other);
+      async () => {
+        const { apples, collectedAppleCount } = this.state;
+        // Game finish logic
+        if (apples.length === collectedAppleCount) {
+          await delay(apple.transition);
+          this.finish();
+        }
       }
     );
   };
 
-  collectApples = (apples, other) => {
-    console.log(apples, 'collect');
-    setTimeout(() => {
-      const collectedApples = apples.map(apple => {
-        apple.collect();
-        return apple;
-      });
-      this.setState(prevState => {
+  finish = () => {
+    this.setState({ finished: true });
+  };
+
+  reset = () => {
+    this.setState(
+      prevState => {
         return {
-          apples: [...other, ...collectedApples]
+          apples: [],
+          collectedApples: [],
+          applesOnTree: [],
+          collectedAppleCount: 0,
+          finished: false
         };
-      });
-    }, 1000);
+      },
+      () => {
+        this.generateApple();
+      }
+    );
   };
 
   render() {
@@ -96,7 +138,8 @@ class GameProvider extends Component {
         value={{
           ...this.state,
           handleShakeButtonClick: this.handleShakeButtonClick,
-          handleShakingAnimationEnd: this.handleShakingAnimationEnd
+          handleShakingAnimationEnd: this.handleShakingAnimationEnd,
+          handleReset: this.reset
         }}
       >
         {children}

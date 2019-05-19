@@ -1,4 +1,4 @@
-import { random, constants } from '../helpers';
+import { random, constants } from "../helpers";
 
 const { generateRandomInt } = random;
 const { dropPositionRange, basketPosition } = constants;
@@ -16,12 +16,12 @@ class Apple {
       dropPositionRange.min,
       dropPositionRange.max
     );
-    this.collected = true;
   }
 
   collect() {
     this.bottom = basketPosition.bottom;
     this.left = basketPosition.left;
+    this.collected = true;
   }
 }
 

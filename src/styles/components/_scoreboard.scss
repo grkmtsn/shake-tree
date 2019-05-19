@@ -1,0 +1,16 @@
+.scoreboard {
+  display: flex;
+  height: 50px;
+  align-items: center;
+  padding: 0 10px;
+
+  .basket img {
+    width: 40px;
+  }
+
+  .score {
+    margin-left: 10px;
+    font-family: monospace;
+    font-size: 14px;
+  }
+}

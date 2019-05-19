@@ -14,8 +14,8 @@ const leftRange = {
 };
 
 const transitionRange = {
-  min: 100,
-  max: 750
+  min: 400,
+  max: 700
 };
 
 const dropPositionRange = {
@@ -25,7 +25,7 @@ const dropPositionRange = {
 
 const appleCountRange = {
   min: 2,
-  max: 5
+  max: 15
 };
 
 export {

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-const Button = ({ handleClick }) => {
+const Button = ({ handleClick, finished }) => {
   return (
-    <button onClick={handleClick} className="button">
+    <button disabled={finished} onClick={handleClick} className="button">
       SHAKE
     </button>
   );
