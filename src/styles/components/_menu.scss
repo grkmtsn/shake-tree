@@ -34,7 +34,14 @@
   }
 
   .score {
-    padding: 15px 0;
+    padding: 15px;
+    text-align: center;
+
+    .slogan {
+      margin-bottom: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
   }
 
   .buttons {

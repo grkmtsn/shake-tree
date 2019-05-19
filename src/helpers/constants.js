@@ -25,7 +25,7 @@ const dropPositionRange = {
 
 const appleCountRange = {
   min: 2,
-  max: 15
+  max: 2
 };
 
 export {

@@ -15,7 +15,9 @@ class GameProvider extends Component {
     applesOnTree: [], // Apples array stay on tree
     collectedAppleCount: 0, // Collected apple count after every click
     isShaking: false, // Animation control state
-    finished: false // Check game finish state
+    attemptsCount: 0, // Click count for score calculating
+    finished: false, // Check game finish state
+    score: 0
   };
 
   componentWillMount() {
@@ -53,7 +55,12 @@ class GameProvider extends Component {
 
   handleShakingAnimationEnd = () => {
     // After tree shake animation end in css, this method will execute
-    this.setState({ isShaking: false });
+    this.setState(prevState => {
+      return {
+        isShaking: false,
+        attemptsCount: prevState.attemptsCount + 1 // Increase click coumt after animation end
+      };
+    });
     const { apples } = this.state;
 
     const applesOnTree = apples.filter(apple => apple.collected === false); // At first get apples which collected property is false
@@ -110,7 +117,22 @@ class GameProvider extends Component {
     );
   };
 
+  calculateScore = () => {
+    const { attemptsCount, collectedAppleCount } = this.state;
+    const minimumAttemptsPoint = 1 / collectedAppleCount;
+    const remainAttempts =
+      attemptsCount === 1
+        ? collectedAppleCount
+        : collectedAppleCount - attemptsCount;
+    const score =
+    remainAttempts === 0
+        ? minimumAttemptsPoint
+        : minimumAttemptsPoint * remainAttempts;
+    this.setState({ score: Math.floor(score * 100) });
+  };
+
   finish = () => {
+    this.calculateScore();
     this.setState({ finished: true });
   };
 
@@ -122,7 +144,9 @@ class GameProvider extends Component {
           collectedApples: [],
           applesOnTree: [],
           collectedAppleCount: 0,
-          finished: false
+          finished: false,
+          attemptsCount: 0,
+          score: 0
         };
       },
       () => {

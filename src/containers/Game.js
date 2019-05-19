@@ -15,6 +15,8 @@ class Game extends Component {
           handleShakeButtonClick,
           handleShakingAnimationEnd,
           finished,
+          score,
+          attemptsCount,
           handleReset
         }) => (
           <React.Fragment>
@@ -26,7 +28,9 @@ class Game extends Component {
               handleAnimationEnd={handleShakingAnimationEnd}
             />
             <Menu
-              score={collectedAppleCount}
+              score={score}
+              collectedAppleCount={collectedAppleCount}
+              attemptsCount={attemptsCount}
               finished={finished}
               handleReset={handleReset}
             />
