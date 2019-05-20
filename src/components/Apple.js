@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Apple = ({ bottom, left, transition, transitionDelay, collected }) => {
-  const transitionStyle = `all ${transition}ms linear ${transitionDelay}ms`;
+const Apple = ({ bottom, left, transition, collected }) => {
+  const transitionStyle = `all ${transition}ms linear`;
   return (
     <div
       className="apple"
