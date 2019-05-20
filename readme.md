@@ -5,14 +5,14 @@ Shake Tree game buil with React, React Context API and Webpack.
 ## Installation
 
 1.  Clone the project repo - https://github.com/grkmtsn/shake-tree.git
-2.  npm install to install npm packages
-3.  start dev server using npm run dev
+2.  `npm install` to install npm packages
+3.  start dev server using `npm run dev`
 
 ## Configuration
 
-1. 'webpack.config.base.js' config common webpack for both dev and production environments and merge common and webpack environment based config.
-2. webpack/webpack.dev.js config webpack for dev environment.
-3. 'webpack/webpack.prod.js' config webpack for production environment.
+1. `webpack.config.base.js` config common webpack for both dev and production environments and merge common and webpack environment based config.
+2. `webpack/webpack.dev.js` config webpack for dev environment.
+3. `webpack/webpack.prod.js` config webpack for production environment.
 
 ### Technologies used
 
