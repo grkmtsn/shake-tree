@@ -93,15 +93,14 @@ class GameProvider extends Component {
   addBasket = async apple => {
     await delay(1000 + apple.transition);
     apple.collect(); // Each apple has collect method in own class. Collect method set apple's collected propery to true
-    await delay(apple.transition);
 
     this.setState(
       prevState => {
+        // Filter apples on tree for collected property and set apple count in basket
         const applesOnTree = prevState.apples.filter(
           apple => apple.collected === false
         );
         const collectedAppleCount = prevState.collectedAppleCount + 1;
-        // Filter apples on tree for collected property and set apple count in basket
         return {
           applesOnTree,
           collectedAppleCount
