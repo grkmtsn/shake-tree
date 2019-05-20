@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-const Apple = ({ bottom, left, transition, collected }) => {
-  const transitionStyle = `all ${transition}ms linear`;
+const Apple = ({ bottom, left, transition, transitionDelay, collected }) => {
+  const transitionStyle = `all ${transition}ms linear ${transitionDelay}ms`;
   return (
     <div
       className="apple"

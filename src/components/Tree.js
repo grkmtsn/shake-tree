@@ -1,11 +1,11 @@
-import React from "react";
-import { Apple } from "./";
+import React from 'react';
+import { Apple } from './';
 
 const Tree = ({ isShaking, apples, handleAnimationEnd }) => {
   return (
     <div
       onAnimationEnd={handleAnimationEnd}
-      className={`tree ${isShaking ? "shake" : ""}`}
+      className={`tree ${isShaking ? 'shake' : ''}`}
     >
       {apples.map((apple, index) => (
         <Apple
@@ -13,6 +13,7 @@ const Tree = ({ isShaking, apples, handleAnimationEnd }) => {
           bottom={apple.bottom}
           left={apple.left}
           transition={apple.transition}
+          transitionDelay={apple.transitionDelay}
           collected={apple.collected}
         />
       ))}

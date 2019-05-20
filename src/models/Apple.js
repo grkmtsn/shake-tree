@@ -1,4 +1,4 @@
-import { methods, constants } from "../helpers";
+import { methods, constants } from '../helpers';
 
 const { generateRandomInt } = methods;
 const { dropPositionRange, basketPosition } = constants;
@@ -8,6 +8,7 @@ class Apple {
     this.bottom = bottom;
     this.left = left;
     this.transition = transition;
+    this.transitionDelay = 0;
     this.collected = false;
   }
 
@@ -19,6 +20,7 @@ class Apple {
   }
 
   collect() {
+    this.transitionDelay = this.transition;
     this.bottom = basketPosition.bottom;
     this.left = basketPosition.left;
     this.collected = true;

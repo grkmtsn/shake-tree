@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Apple from "../models/Apple";
+import React, { Component } from 'react';
+import Apple from '../models/Apple';
 
 const GameContext = React.createContext();
 
-import { methods, constants } from "../helpers";
+import { methods, constants } from '../helpers';
 
 const { generateRandomInt, delay } = methods;
 const { appleCountRange, bottomRange, transitionRange, leftRange } = constants;
@@ -100,10 +100,11 @@ class GameProvider extends Component {
         const applesOnTree = prevState.apples.filter(
           apple => apple.collected === false
         );
+        const collectedAppleCount = prevState.collectedAppleCount + 1;
         // Filter apples on tree for collected property and set apple count in basket
         return {
           applesOnTree,
-          collectedAppleCount: prevState.collectedAppleCount + 1
+          collectedAppleCount
         };
       },
       async () => {
@@ -125,7 +126,7 @@ class GameProvider extends Component {
         ? collectedAppleCount
         : collectedAppleCount - attemptsCount;
     const score =
-    remainAttempts === 0
+      remainAttempts === 0
         ? minimumAttemptsPoint
         : minimumAttemptsPoint * remainAttempts;
     this.setState({ score: Math.floor(score * 100) });
