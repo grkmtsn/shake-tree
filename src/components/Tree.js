@@ -13,7 +13,6 @@ const Tree = ({ isShaking, apples, handleAnimationEnd }) => {
           bottom={apple.bottom}
           left={apple.left}
           transition={apple.transition}
-          transitionDelay={apple.transitionDelay}
           collected={apple.collected}
         />
       ))}
